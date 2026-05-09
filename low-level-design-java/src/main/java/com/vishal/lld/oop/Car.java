@@ -46,6 +46,8 @@ public class Car {
 
     // Behaviours
     public void displayInfo() {
+        System.out.println("displayInfo invoked from Car.");
+
         System.out.println("brand: " + brand);
         System.out.println("color: " + color);
         System.out.println("speed: " + speed);
