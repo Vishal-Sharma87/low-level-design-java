@@ -6,12 +6,12 @@ Encapsulation means making object fields private to prevent direct external acce
 
 ## Q2. What is the difference between private, public, and protected access modifiers?
 
-| Modifier | Same Class | Same Package | Subclass | Everywhere |
-|---|:---:|:---:|:---:|:---:|
-| `private` | ✅ | ❌ | ❌ | ❌ |
-| `protected` | ✅ | ✅ | ✅ | ❌ |
-| `public` | ✅ | ✅ | ✅ | ✅ |
-| (default / package-private) | ✅ | ✅ | ❌ | ❌ |
+| Modifier                    | Same Class | Same Package | Subclass | Everywhere |
+| --------------------------- | :--------: | :----------: | :------: | :--------: |
+| `private`                   |     ✅     |      ❌      |    ❌    |     ❌     |
+| `protected`                 |     ✅     |      ✅      |    ✅    |     ❌     |
+| `public`                    |     ✅     |      ✅      |    ✅    |     ✅     |
+| (default / package-private) |     ✅     |      ✅      |    ❌    |     ❌     |
 
 Default (no modifier) = same package only.
 
@@ -27,4 +27,3 @@ No. Encapsulation is about preventing invalid or direct access to object state a
 
 - **Encapsulation:** hides the data (fields) and controls access through methods. Protects object integrity.
 - **Abstraction:** hides implementation details and exposes only what is necessary. For example, a `sort()` method exposes sorting behavior without revealing the internal algorithm.
-
