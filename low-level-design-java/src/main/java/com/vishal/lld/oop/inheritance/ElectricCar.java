@@ -28,4 +28,12 @@ public class ElectricCar extends Car {
         System.out.println("batteryLevel: " + this.batteryLevel);
     }
 
+
+    // Trying to override the final method in parent class
+    
+    // @Override
+    // public void printCarPolicy(){
+        
+    // }
+
 }

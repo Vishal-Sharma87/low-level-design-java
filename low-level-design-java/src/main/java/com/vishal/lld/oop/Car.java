@@ -1,6 +1,15 @@
 package com.vishal.lld.oop;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Car {
+
+    private static AtomicInteger totalCars;
+
+    static {
+        totalCars = new AtomicInteger(0);
+    }
+
     // Properties of car
     private String brand;
     private String color;
@@ -13,6 +22,19 @@ public class Car {
         if (speed < 0)
             throw new IllegalArgumentException("Object creation with negative speed is not allowed");
         this.speed = speed;
+
+        // atomically increase the totalCars count on successfull instance creation
+        totalCars.incrementAndGet();
+    }
+
+    // returns the total cars created so far
+    public static int getToTalCars() {
+        return totalCars.get();
+    }
+
+    // demonstartion of final method
+    public final void printCarPolicy() {
+        System.out.println("No Negative speed allowed.");
     }
 
     // getters and setters
