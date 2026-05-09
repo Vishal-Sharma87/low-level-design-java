@@ -26,3 +26,22 @@ Constructor overloading means defining multiple constructors in the same class w
 - `this.field` — refers to the current object's field and resolves ambiguity with parameter names.
 - `this()` — calls another constructor in the same class (constructor chaining). Must be the first statement in the constructor.
 - Passing `this` as an argument — passes the current object reference to another method or constructor.
+
+## Runnable Main class
+
+```java
+    public static void main(String[] args) {
+
+        Car coupe = new Car("BMW", "Black", 120);
+        Car sedan = new Car("Mercedes", "Navy Blue", 90);
+
+        // Displaying the info of each "Car" object
+        System.out.println("Displaing info for :" + coupe);
+
+        System.out.println("Displaing info for :" + sedan);
+        sedan.displayInfo();
+
+        // trying to set negative speed -> Assuming warning
+        coupe.setSpeed(-66);
+    }
+```

@@ -1,5 +1,6 @@
-public class Car {
+package com.vishal.lld.oop;
 
+public class Car {
     // Properties of car
     private String brand;
     private String color;
@@ -44,25 +45,9 @@ public class Car {
     }
 
     // Behaviours
-    void displayInfo() {
+    public void displayInfo() {
         System.out.println("brand: " + brand);
         System.out.println("color: " + color);
         System.out.println("speed: " + speed);
     }
-
-    public static void main(String[] args) {
-        Car coupe = new Car("BMW", "Black", 120);
-        Car sedan = new Car("Mercedes", "Navy Blue", 90);
-
-        // Displaying the info of each "Car" object
-        System.out.println("Displaing info for :" + coupe);
-        coupe.displayInfo();
-
-        System.out.println("Displaing info for :" + sedan);
-        sedan.displayInfo();
-
-        // trying to set negative speed -> Assuming warning
-        coupe.setSpeed(-66);
-    }
-
 }
