@@ -2,12 +2,12 @@
 
 ## Q1. What is the difference between a constructor and a method?
 
-| Aspect | Constructor | Method |
-|---|---:|---:|
-| Purpose | Initialize object fields at creation | Define object behavior |
-| Return type | None | Has a return type |
-| Invocation | Once, automatically at `new` | Multiple times, explicitly called |
-| Name | Same as class name | Any valid identifier |
+| Aspect      |                          Constructor |                            Method |
+| ----------- | -----------------------------------: | --------------------------------: |
+| Purpose     | Initialize object fields at creation |            Define object behavior |
+| Return type |                                 None |                 Has a return type |
+| Invocation  |         Once, automatically at `new` | Multiple times, explicitly called |
+| Name        |                   Same as class name |              Any valid identifier |
 
 ## Q2. What is the default constructor? What happens when you define your own?
 
