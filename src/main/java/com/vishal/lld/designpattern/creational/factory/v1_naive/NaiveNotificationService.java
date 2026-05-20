@@ -1,5 +1,9 @@
 package com.vishal.lld.designpattern.creational.factory.v1_naive;
 
+/**
+ * v1 - naive approach
+ * all logic inline, no abstraction, violates OCP
+ */
 public class NaiveNotificationService {
 
     /**
