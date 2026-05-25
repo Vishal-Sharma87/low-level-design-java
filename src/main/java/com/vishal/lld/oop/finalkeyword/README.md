@@ -55,12 +55,20 @@ totalCars++; // two threads can increment simultaneously and lose a count
 
 **Q5. What is the difference between static and instance methods?**
 
-|                           | Static Method        | Instance Method   |
-| ------------------------- | -------------------- | ----------------- |
-| Belongs to                | Class                | Object            |
-| Called via                | `ClassName.method()` | `object.method()` |
-| Access to instance fields | ❌ No                | ✅ Yes            |
-| `this` keyword            | ❌ Not allowed       | ✅ Available      |
+| Aspect                       | Static Method                        | Instance Method             |
+| ---------------------------- | ------------------------------------ | --------------------------- |
+| Belongs To                   | Class                                | Object                      |
+| Memory Association           | Class area                           | Object memory               |
+| Invocation Style             | `ClassName.method()`                 | `object.method()`           |
+| Requires Object Creation     | No                                   | Yes                         |
+| Access to Instance Variables | No                                   | Yes                         |
+| Access to Static Variables   | Yes                                  | Yes                         |
+| Access to `this` Keyword     | Not allowed                          | Available                   |
+| Method Overriding            | Not truly overridden (method hiding) | Supports runtime overriding |
+| Polymorphism Support         | Limited                              | Fully supported             |
+| Execution Nature             | Common/shared behavior               | Object-specific behavior    |
+| Typical Usage                | Utility/helper methods               | Object behavior             |
+| Example                      | `Math.max()`                         | `student.getName()`         |
 
 ---
 
