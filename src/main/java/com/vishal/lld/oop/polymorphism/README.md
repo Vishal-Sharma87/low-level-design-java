@@ -48,8 +48,8 @@ Only methods defined in the **parent class** (reference type). The compiler only
 
 ```java
 Car car = new ElectricCar("Tesla", "White", 200, 90);
-car.displayInfo(); // ✅ defined in Car
-car.charge();      // ❌ compile error — charge() not in Car
+car.displayInfo(); //    defined in Car
+car.charge();      //   compile error — charge() not in Car
 ```
 
 ---
@@ -60,7 +60,7 @@ car.charge();      // ❌ compile error — charge() not in Car
 
 ```java
 Car car = new Car("BMW", "Black", 120);
-ElectricCar ec = (ElectricCar) car; // ❌ ClassCastException at runtime
+ElectricCar ec = (ElectricCar) car; //   ClassCastException at runtime
 ```
 
 Compiler allows it but JVM crashes at runtime.
@@ -70,7 +70,7 @@ Compiler allows it but JVM crashes at runtime.
 ```java
 if (car instanceof ElectricCar) {
     ElectricCar ec = (ElectricCar) car; // check then cast separately
-    ec.charge(); // ✅
+    ec.charge(); //
 }
 ```
 
@@ -78,16 +78,22 @@ if (car instanceof ElectricCar) {
 
 ```java
 if (car instanceof ElectricCar ec) { // check + cast in one line
-    ec.charge(); // ✅ ec is already cast and ready
+    ec.charge(); //    ec is already cast and ready
 }
 ```
 
-|                      | Blind Cast           | Old instanceof | Pattern Matching |
-| -------------------- | -------------------- | -------------- | ---------------- |
-| Checks type          | ❌                   | ✅             | ✅               |
-| Separate cast needed | ✅                   | ✅             | ❌               |
-| Risk                 | `ClassCastException` | Safe           | Safe             |
-| Java version         | All                  | All            | 16+              |
+| Aspect                  | Blind Cast              | Old `instanceof`          | Pattern Matching `instanceof` |
+| ----------------------- | ----------------------- | ------------------------- | ----------------------------- |
+| Checks Type Before Cast | No                      | Yes                       | Yes                           |
+| Separate Cast Needed    | Yes                     | Yes                       | No                            |
+| Readability             | Poor                    | Moderate                  | High                          |
+| Boilerplate Code        | High                    | Moderate                  | Low                           |
+| Risk                    | `ClassCastException`    | Safe                      | Safe                          |
+| Type Safety             | Low                     | High                      | High                          |
+| Performance             | Normal                  | Normal                    | Normal                        |
+| Java Version            | All                     | All                       | Java 16+                      |
+| Typical Syntax          | `(Dog) animal`          | `if (obj instanceof Dog)` | `if (obj instanceof Dog d)`   |
+| Best Use Case           | When type is guaranteed | Traditional safe checking | Modern concise polymorphism   |
 
 ---
 
@@ -105,11 +111,11 @@ if (car instanceof ElectricCar ec) { // check + cast in one line
 ```java
 // Widening — automatic, no data loss
 int a = 10;
-float b = a; // ✅ automatic
+float b = a; //    automatic
 
 // Narrowing — manual, data loss possible
 float x = 9.99f;
-int y = (int) x; // ✅ y = 9, decimal lost
+int y = (int) x; //    y = 9, decimal lost
 ```
 
 Widening order:
