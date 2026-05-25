@@ -267,12 +267,12 @@ new OptimalSmsNotification().register();
 
 ## Full Evolution Summary
 
-| Version             | if-else        | Factory | OCP in Factory | Main knows types |
-| ------------------- | -------------- | ------- | -------------- | ---------------- |
-| v1 Naive            | inside service | ❌      | ❌             | ✅               |
-| v2 Simple Factory   | inside factory | ✅      | ❌             | ✅               |
-| v3 Map Based        | ❌             | ✅      | ✅             | ✅               |
-| v4 Self Registering | ❌             | ✅      | ✅             | ❌               |
+| Version                     | Creation Logic               | Scalability | OCP Status     | Client Dependency            | Main Characteristic    |
+| --------------------------- | ---------------------------- | ----------- | -------------- | ---------------------------- | ---------------------- |
+| v1 Naive                    | `if-else` inside service     | Poor        | Violated       | Depends on concrete classes  | Tight coupling         |
+| v2 Simple Factory           | `if-else` moved to factory   | Moderate    | Violated       | Depends on concrete classes  | Centralized creation   |
+| v3 Map Based Factory        | Uses `Map<String, Supplier>` | Good        | Followed       | Still knows concrete classes | Easily extendable      |
+| v4 Self Registering Factory | Classes register themselves  | Excellent   | Fully followed | Depends only on abstraction  | Fully decoupled design |
 
 ---
 
