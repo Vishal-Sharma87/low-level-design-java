@@ -117,7 +117,7 @@ public interface Chargeable {
 }
 
 // Called as:
-Chargeable.maxBatteryLevel(); // ✅
+Chargeable.maxBatteryLevel();
 // Cannot be overridden
 ```
 
