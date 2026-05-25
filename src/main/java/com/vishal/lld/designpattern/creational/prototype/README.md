@@ -62,27 +62,27 @@ Order order2 = order1.clone();
 
 `super.clone()` does a **shallow copy** — copies field values as is.
 
-- Primitive fields (`int`, `boolean`) → independent copy ✅
-- Object fields (`Address`, `List`) → same reference copied ❌
+- Primitive fields (`int`, `boolean`) → independent copy
+- Object fields (`Address`, `List`) → same reference copied
 
 ```java
 // if deliveryAddress is an object
 order1.address = Address object at memory location X
 order2.address = same Address object at memory location X  // not a copy
 
-order2.address.street = "456 MG Road"; // modifies order1's address too ❌
+order2.address.street = "456 MG Road"; // modifies order1's address too
 ```
 
 ### Shallow vs Deep Copy
 
 ```
 Shallow Copy — copies field values only
-    primitives  → independent  ✅
-    objects     → shared reference ❌
+    primitives  → independent
+    objects     → shared reference
 
 Deep Copy — copies field values + clones inner objects
-    primitives  → independent  ✅
-    objects     → independent  ✅
+    primitives  → independent
+    objects     → independent
 ```
 
 Deep copy fix:
@@ -239,12 +239,12 @@ System.out.println(order1 == order2); // false — different objects in memory
 
 ## Why Builder-Based Prototype is Better than Cloneable
 
-|                          | Cloneable               | Builder-Based                            |
-| ------------------------ | ----------------------- | ---------------------------------------- |
-| Shallow copy risk        | ✅ exists               | ❌ none — each field copied individually |
-| Modify before finalizing | ❌ not possible         | ✅ chain methods before build()          |
-| Immutability preserved   | ❌ needs setters        | ✅ no setters needed                     |
-| Intent communicated      | ❌ unclear what changed | ✅ only changed fields are visible       |
+|                          | Cloneable            | Builder-Based                         |
+| ------------------------ | -------------------- | ------------------------------------- |
+| Shallow copy risk        | exists               | none — each field copied individually |
+| Modify before finalizing | not possible         | chain methods before build()          |
+| Immutability preserved   | needs setters        | no setters needed                     |
+| Intent communicated      | unclear what changed | only changed fields are visible       |
 
 ---
 
