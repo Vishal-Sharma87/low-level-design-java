@@ -33,7 +33,7 @@ public class NaiveLogger {
 
     public static NaiveLogger getInstance() {
         if (instance == null) {
-            instance = new NaiveLogger(); // ❌ race condition possible
+            instance = new NaiveLogger(); // race condition possible
         }
         return instance;
     }
@@ -164,12 +164,12 @@ public class OptimalLogger {
 
 ## Full Evolution Summary
 
-| Version           | Lazy | Thread Safe | Performant | Issue                    |
-| ----------------- | ---- | ----------- | ---------- | ------------------------ |
-| v1 Naive          | ✅   | ❌          | ✅         | Race condition           |
-| v2 Synchronized   | ✅   | ✅          | ❌         | Lock on every call       |
-| v3 Double Checked | ✅   | ⚠️          | ✅         | Half-baked instance risk |
-| v4 Optimal        | ✅   | ✅          | ✅         | None                     |
+| Version                                                       | Lazy Initialization | Thread Safe                     | Performance | Main Issue                                              |
+| ------------------------------------------------------------- | ------------------- | ------------------------------- | ----------- | ------------------------------------------------------- |
+| v1 Naive Singleton                                            | Yes                 | No                              | Fast        | Race condition during concurrent access                 |
+| v2 Synchronized Method Singleton                              | Yes                 | Yes                             | Slow        | Synchronization overhead on every call                  |
+| v3 Double Checked Locking Singleton                           | Yes                 | Partially / Requires `volatile` | Fast        | Risk of partially initialized object without `volatile` |
+| v4 Optimal Singleton (`volatile` + DCL / Inner Helper / Enum) | Yes                 | Yes                             | Fast        | No major issue                                          |
 
 ---
 
