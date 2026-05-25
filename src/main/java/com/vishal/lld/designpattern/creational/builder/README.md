@@ -267,11 +267,11 @@ OptimalOrder minimalOrder = OptimalOrder.builder("Coke", 1, "UPI")
 
 ## Full Evolution Summary
 
-| Version        | Nulls     | Readable | Mandatory Enforced | Validation |
-| -------------- | --------- | -------- | ------------------ | ---------- |
-| v1 Naive       | ✅ forced | ❌       | ❌                 | ❌         |
-| v2 Telescoping | partial   | ❌       | partial            | ❌         |
-| v3 Builder     | ❌ none   | ✅       | ✅                 | ✅         |
+| Version        | Nulls   | Readable | Mandatory Enforced | Validation |
+| -------------- | ------- | -------- | ------------------ | ---------- |
+| v1 Naive       | forced  | NO       | NO                 | NO         |
+| v2 Telescoping | partial | NO       | partial            | NO         |
+| v3 Builder     | none    | YES      | YES                | YES        |
 
 ---
 
