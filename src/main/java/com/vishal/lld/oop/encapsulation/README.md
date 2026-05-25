@@ -6,12 +6,12 @@ Encapsulation means making object fields private to prevent direct external acce
 
 ## Q2. What is the difference between private, public, and protected access modifiers?
 
-| Modifier                    | Same Class | Same Package | Subclass | Everywhere |
-| --------------------------- | :--------: | :----------: | :------: | :--------: |
-| `private`                   |     ✅     |      ❌      |    ❌    |     ❌     |
-| `protected`                 |     ✅     |      ✅      |    ✅    |     ❌     |
-| `public`                    |     ✅     |      ✅      |    ✅    |     ✅     |
-| (default / package-private) |     ✅     |      ✅      |    ❌    |     ❌     |
+| Modifier                    | Accessibility              | Encapsulation Level           | Typical Usage                   | Outside Direct Access |
+| --------------------------- | -------------------------- | ----------------------------- | ------------------------------- | --------------------- |
+| `private`                   | Only inside same class     | Strongest                     | Hide internal data and logic    | Not allowed           |
+| `default` (package-private) | Same package only          | Moderate                      | Internal package communication  | Restricted to package |
+| `protected`                 | Same package + subclasses  | Controlled inheritance access | Used in inheritance hierarchies | Limited               |
+| `public`                    | Accessible from everywhere | Weakest                       | Exposed APIs and methods        | Fully allowed         |
 
 Default (no modifier) = same package only.
 
