@@ -5,9 +5,8 @@ import com.vishal.lld.casestudies.parkinglot.interfaces.PaymentStrategy;
 
 public class UpiPaymentStrategy implements PaymentStrategy {
 
-    @Override
-    public void register() {
-        PaymentStrategyFactory.register("upi", this);
+    static {
+        PaymentStrategyFactory.register("upi", new UpiPaymentStrategy());
     }
 
     @Override

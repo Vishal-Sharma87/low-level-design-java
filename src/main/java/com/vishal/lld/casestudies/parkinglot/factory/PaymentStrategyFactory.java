@@ -8,6 +8,15 @@ import com.vishal.lld.casestudies.parkinglot.interfaces.PaymentStrategy;
 public class PaymentStrategyFactory {
     private static Map<String, PaymentStrategy> strategyMap = new HashMap<>();
 
+    static {
+
+        try {
+            Class.forName("com.vishal.lld.casestudies.parkinglot.paymentstrategies.UpiPaymentStrategy");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void register(String name, PaymentStrategy strategy) {
         if (name != null && !name.isEmpty() && strategy != null) {
             strategyMap.put(name, strategy);
