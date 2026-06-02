@@ -78,15 +78,12 @@ VehicleType       — BIKE, CAR, TRUCK (used for both vehicle and slot classific
 **`PaymentStrategy`** (interface)
 
 - `pay()` — executes the payment
-- `register()` — registers the strategy with `PaymentStrategyFactory`
-
-> **TODO:** `register()` on the interface is a design smell — it couples each strategy to the
-> factory. Refactor to self-registering via static initializer blocks or factory-side
-> registration to remove this dependency.
+- No infrastructure concerns on the interface — registration is handled by each concrete class
 
 **`PaymentStrategyFactory`**
 
-- Holds `Map<String, PaymentStrategy>` — strategies registered by name
+- Holds `Map<String, PaymentStrategy>` — initialized inline to guarantee existence before any static block runs
+- Static block calls `Class.forName()` for each known strategy — forces class loading which triggers self-registration
 - `getPaymentStrategy(String name)` — returns strategy or throws `IllegalArgumentException`
 
 > **TODO:** Key type should be an enum, not a `String`, to eliminate typo-based runtime failures.
@@ -94,7 +91,8 @@ VehicleType       — BIKE, CAR, TRUCK (used for both vehicle and slot classific
 **`UpiPaymentStrategy`**
 
 - Implements `PaymentStrategy`
-- Registered manually in `Main` before `ParkingLot` is initialized
+- Static block registers itself with `PaymentStrategyFactory` on class load — `Main` has zero knowledge of strategy classes
+- Adding a new strategy requires: implement `pay()`, add static registration block, add `Class.forName()` entry in factory
 
 ---
 
