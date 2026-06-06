@@ -239,11 +239,11 @@ Applying multiple patterns together to solve real system design problems.
 
 Each concept has a dedicated notes file with interview Q&A:
 
-- `oop/constructor/constructor_notes.md`
-- `oop/encapsulation/encapsulation_notes.md`
-- `oop/inheritance/inheritance_notes.md`
-- `oop/abstraction/abstraction_notes.md`
-- `oop/static-final/static_and_final_notes.md`
+- `oop/constructor/README.md`
+- `oop/encapsulation/README.md`
+- `oop/inheritance/README.md`
+- `oop/abstraction/README.md`
+- `oop/static-final/README.md`
 - `solid/srp/README.md`
 - `solid/ocp/README.md`
 - `solid/lsp/README.md`
