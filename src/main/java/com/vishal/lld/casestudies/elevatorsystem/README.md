@@ -217,3 +217,111 @@ Elevator.run() — continuous loop
 | Zone-based assignment (floors 1-5 → L1, 6-10 → L2) | `NearestElevatorStrategy` ignores zones | Add `ZoneStrategy` implementing `ElevatorSelectionStrategy`                   |
 | Multiple buildings                                 | `ElevatorTracker` Singleton             | Replace Singleton with instance per building, managed by a `BuildingRegistry` |
 | Load-aware assignment                              | Strategy uses only floor distance       | Add queue size to cost formula in strategy                                    |
+
+---
+
+# WORKING JAVA MAIN CLASS
+
+```java
+
+    public static void main(String[] args) throws InterruptedException {
+        Elevator elevator1 = new Elevator();
+        Elevator elevator2 = new Elevator();
+        Elevator elevator3 = new Elevator();
+
+        ElevatorCabinPanel elevatorCabinPanel1 = new ElevatorCabinPanel(elevator1);
+        ElevatorCabinPanel elevatorCabinPanel2 = new ElevatorCabinPanel(elevator2);
+        ElevatorCabinPanel elevatorCabinPanel3 = new ElevatorCabinPanel(elevator3);
+
+        Thread thread1 = new Thread(elevator1);
+        Thread thread2 = new Thread(elevator2);
+        Thread thread3 = new Thread(elevator3);
+
+        ElevatorTracker elevatorTracker = ElevatorTracker.getInstance(List.of(elevator1, elevator2, elevator3));
+
+        elevator1.registerObserver(elevatorTracker);
+        elevator2.registerObserver(elevatorTracker);
+        elevator3.registerObserver(elevatorTracker);
+
+        ElevatorAssignmentService elevatorAssignmentService = new ElevatorAssignmentService(elevatorTracker);
+        ElevatorSelectionStrategy elevatorSelectionStrategy = new NearestElevatorStrategy();
+
+        HallPanel hallPanel = new HallPanel(elevatorAssignmentService, elevatorSelectionStrategy);
+
+        thread1.start();
+        thread2.start();
+        thread3.start();
+
+        hallPanel.down(3);
+        hallPanel.up(5);
+        hallPanel.down(2);
+        hallPanel.down(7);
+        hallPanel.up(6);
+        hallPanel.down(1);
+        hallPanel.up(10);
+        hallPanel.down(5);
+        hallPanel.down(2);
+
+    }
+```
+
+# Expected Output
+
+```java
+SYNCHRONIZED
+SYNCHRONIZED
+SYNCHRONIZED
+Incoming DOWN request for floor: 3
+Floor: 3, direction: DOWN is assigned to elevatorId: 1
+Incoming UP request for floor: 5
+Floor: 5, direction: UP is assigned to elevatorId: 1
+Incoming DOWN request for floor: 2
+Floor: 2, direction: DOWN is assigned to elevatorId: 2
+Incoming DOWN request for floor: 7
+Floor: 7, direction: DOWN is assigned to elevatorId: 3
+Elevator with elevatoId: 1 is at floor: 1 with currentStatus: MOVING_UP
+Elevator with elevatoId: 2 is at floor: 1 with currentStatus: MOVING_UP
+Incoming UP request for floor: 6
+Elevator with elevatoId: 3 is at floor: 1 with currentStatus: MOVING_UP
+Floor: 6, direction: UP is assigned to elevatorId: 1
+Incoming DOWN request for floor: 1
+Floor: 1, direction: DOWN is assigned to elevatorId: 1
+Incoming UP request for floor: 10
+Floor: 10, direction: UP is assigned to elevatorId: 1
+Incoming DOWN request for floor: 5
+Floor: 5, direction: DOWN is assigned to elevatorId: 1
+Incoming DOWN request for floor: 2
+Floor: 2, direction: DOWN is assigned to elevatorId: 1
+Elevator with elevatoId: 3 is at floor: 2 with currentStatus: MOVING_UP
+Elevator with elevatoId: 2 is at floor: 2 with currentStatus: MOVING_UP
+Elevator with elevatroId: 1 arrived at destination: 1
+Elevator with elevatoId: 1 is at floor: 2 with currentStatus: MOVING_UP
+Elevator with elevatroId: 2 arrived at destination: 2
+Elevator with elevatroId: 1 arrived at destination: 2
+Elevator with elevatoId: 1 is at floor: 3 with currentStatus: MOVING_UP
+Elevator with elevatoId: 3 is at floor: 3 with currentStatus: MOVING_UP
+elevatorStatus of Elevator with elevatorId: 2 is set as Idle
+SYNCHRONIZED
+Elevator with elevatroId: 1 arrived at destination: 3
+Elevator with elevatoId: 3 is at floor: 4 with currentStatus: MOVING_UP
+Elevator with elevatoId: 1 is at floor: 4 with currentStatus: MOVING_UP
+Elevator with elevatoId: 3 is at floor: 5 with currentStatus: MOVING_UP
+Elevator with elevatoId: 1 is at floor: 5 with currentStatus: MOVING_UP
+Elevator with elevatroId: 1 arrived at destination: 5
+Elevator with elevatroId: 1 arrived at destination: 5
+Elevator with elevatoId: 3 is at floor: 6 with currentStatus: MOVING_UP
+Elevator with elevatoId: 1 is at floor: 6 with currentStatus: MOVING_UP
+Elevator with elevatroId: 1 arrived at destination: 6
+Elevator with elevatoId: 3 is at floor: 7 with currentStatus: MOVING_UP
+Elevator with elevatoId: 1 is at floor: 7 with currentStatus: MOVING_UP
+Elevator with elevatroId: 3 arrived at destination: 7
+elevatorStatus of Elevator with elevatorId: 3 is set as Idle
+SYNCHRONIZED
+Elevator with elevatoId: 1 is at floor: 8 with currentStatus: MOVING_UP
+Elevator with elevatoId: 1 is at floor: 9 with currentStatus: MOVING_UP
+Elevator with elevatoId: 1 is at floor: 10 with currentStatus: MOVING_UP
+Elevator with elevatroId: 1 arrived at destination: 10
+elevatorStatus of Elevator with elevatorId: 1 is set as Idle
+SYNCHRONIZED
+
+```
