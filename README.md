@@ -103,10 +103,11 @@ src/
 - `private` fields not directly accessible in child — accessed via inherited getters/setters
 
 **5. Method Overriding & `super`**
-
+ 
 - `@Override` annotation and its importance
 - Rules — same name, same parameters, same or covariant return type
 - Cannot override `final` or `static` methods
+
 
 **6. Polymorphism**
 
