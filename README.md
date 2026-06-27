@@ -67,8 +67,29 @@ src/
     │       ├── strategy/
     │       ├── observer/
     │       └── state/
-    └── problems/
-        └── parking-lot/
+    └── casestudies/
+        ├── parkinglot/
+        │   ├── models/
+        │   ├── enums/
+        │   ├── factory/
+        │   ├── interfaces/
+        │   ├── paymentstrategies/
+        │   ├── ParkingLot.java
+        │   ├── SlotManager.java
+        │   ├── BillingSystem.java
+        │   └── README.md
+        └── elevatorsystem/
+            ├── models/
+            ├── enums/
+            ├── interfaces/
+            ├── observers/
+            ├── panels/
+            ├── states/
+            ├── strategy/
+            ├── Elevator.java
+            ├── ElevatorTracker.java
+            ├── ElevatorAssignmentService.java
+            └── README.md
 ```
 
 ---
@@ -145,22 +166,26 @@ src/
 - A class should have only one reason to change
 - Example: Invoice system — separating printing, persistence, and calculation
 - Violation: one class handling business logic + DB + formatting
-  **2. OCP — Open/Closed Principle**
+
+**2. OCP — Open/Closed Principle**
 
 - Open for extension, closed for modification
 - Example: Payment system using Strategy + Factory patterns
 - Adding new payment methods without touching existing code
-  **3. LSP — Liskov Substitution Principle**
+
+**3. LSP — Liskov Substitution Principle**
 
 - Subtypes must be substitutable for their base types without breaking behaviour
 - Examples: Bird/Penguin, Employee/ContractEmployee
 - Violation: subclass that throws `UnsupportedOperationException` for inherited methods
-  **4. ISP — Interface Segregation Principle**
+
+**4. ISP — Interface Segregation Principle**
 
 - Clients should not be forced to depend on methods they don't use
 - Examples: Worker system, Printer system
 - Split fat interfaces into focused, role-specific contracts
-  **5. DIP — Dependency Inversion Principle**
+
+**5. DIP — Dependency Inversion Principle**
 
 - High-level modules should not depend on low-level modules — both should depend on abstractions
 - Example: OrderService → DatabaseService → MySQLDatabase layered architecture
@@ -203,17 +228,25 @@ Applying multiple patterns together to solve real system design problems.
 | Problem                | Patterns Applied                       | Status      |
 | ---------------------- | -------------------------------------- | ----------- |
 | Parking Lot            | Singleton, Strategy, Factory           | ✅ Complete |
-| Elevator System        | State, Strategy, Observer              | 🔄 Upcoming |
+| Elevator System        | State, Strategy, Observer              | ✅ Complete |
 | Notification System    | Factory, Observer, Decorator, Strategy | ⬜ Upcoming |
 | Library Management     | Factory, Observer, Strategy            | ⬜ Upcoming |
 | Food Delivery (Swiggy) | Factory, Strategy, Observer, Builder   | ⬜ Upcoming |
 | ATM Machine            | State, Strategy, Singleton             | ⬜ Upcoming |
 
+---
+
 ### Parking Lot
 
-- Spot types: Two-Wheeler, Compact, Large
-- Self-registering strategies via `Class.forName` + static initializer blocks
-- Singleton `ParkingLot`, Factory for ticket/spot creation, Strategy for spot allocation
+**Patterns:** Singleton, Strategy, Factory
+
+**Key design decisions:**
+
+- `SlotManager` (Singleton) — owns two `Map<VehicleType, LinkedHashSet<Integer>>` for available and occupied slots; O(1) assignment and release
+- `BillingSystem` + `PaymentStrategy` — pluggable fee calculation per slot type; strategies self-register via static initializer blocks and `Class.forName()` in `PaymentStrategyFactory`
+- `ParkingTicket` — records vehicle, slot, and arrival time; consumed on exit
+- Slot release is conditional — only after confirmed payment; failed billing leaves slot occupied
+- `VehicleType` and `SlotType` unified into one enum for base design; separation deferred to v2 when overflow parking (BIKE in TRUCK slot) is introduced
 
 ---
 
@@ -245,6 +278,7 @@ Each concept has a dedicated notes file with interview Q&A:
 - `solid/lsp/README.md`
 - `solid/isp/README.md`
 - `solid/dip/README.md`
+- `casestudies/parkinglot/README.md`
 
 ---
 
