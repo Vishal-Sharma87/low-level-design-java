@@ -74,21 +74,19 @@ src/
 ---
 
 ## Block 1 — OOP (Object Oriented Programming)
- 
+
 ### Concepts Covered
- 
+
 **1. Classes & Objects**
- 
+
 - Class as a blueprint, object as an instance
 - Fields, methods, and the `new` keyword
 
-
 **2. Constructors & `this` Keyword**
- 
+
 - Parameterized constructors with validation
 - `this` for field assignment, constructor chaining, and passing current object
 - Default constructor removed when custom constructor is defined
-
 
 **3. Encapsulation**
 
@@ -103,11 +101,10 @@ src/
 - `private` fields not directly accessible in child — accessed via inherited getters/setters
 
 **5. Method Overriding & `super`**
- 
+
 - `@Override` annotation and its importance
 - Rules — same name, same parameters, same or covariant return type
 - Cannot override `final` or `static` methods
-
 
 **6. Polymorphism**
 
@@ -139,38 +136,37 @@ src/
 
 ---
 
-
 ## Block 2 — SOLID Principles
- 
+
 ### Principles Covered
- 
+
 **1. SRP — Single Responsibility Principle**
- 
+
 - A class should have only one reason to change
 - Example: Invoice system — separating printing, persistence, and calculation
 - Violation: one class handling business logic + DB + formatting
-**2. OCP — Open/Closed Principle**
- 
+  **2. OCP — Open/Closed Principle**
+
 - Open for extension, closed for modification
 - Example: Payment system using Strategy + Factory patterns
 - Adding new payment methods without touching existing code
-**3. LSP — Liskov Substitution Principle**
- 
+  **3. LSP — Liskov Substitution Principle**
+
 - Subtypes must be substitutable for their base types without breaking behaviour
 - Examples: Bird/Penguin, Employee/ContractEmployee
 - Violation: subclass that throws `UnsupportedOperationException` for inherited methods
-**4. ISP — Interface Segregation Principle**
- 
+  **4. ISP — Interface Segregation Principle**
+
 - Clients should not be forced to depend on methods they don't use
 - Examples: Worker system, Printer system
 - Split fat interfaces into focused, role-specific contracts
-**5. DIP — Dependency Inversion Principle**
- 
+  **5. DIP — Dependency Inversion Principle**
+
 - High-level modules should not depend on low-level modules — both should depend on abstractions
 - Example: OrderService → DatabaseService → MySQLDatabase layered architecture
 - Constructor injection as the preferred technique
----
 
+---
 
 ## Block 3 — Design Patterns
 
