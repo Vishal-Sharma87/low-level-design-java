@@ -74,13 +74,14 @@ src/
 ---
 
 ## Block 1 — OOP (Object Oriented Programming)
-
+ 
 ### Concepts Covered
-
+ 
 **1. Classes & Objects**
-
+ 
 - Class as a blueprint, object as an instance
 - Fields, methods, and the `new` keyword
+
 
 **2. Constructors & `this` Keyword**
 
