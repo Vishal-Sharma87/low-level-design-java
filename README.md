@@ -241,6 +241,7 @@ Applying multiple patterns together to solve real system design problems.
 **Patterns:** Singleton, Strategy, Factory
 
 **Key design decisions:**
+
 - `SlotManager` (Singleton) — owns two `Map<VehicleType, LinkedHashSet<Integer>>` for available and occupied slots; O(1) assignment and release
 - `BillingSystem` + `PaymentStrategy` — pluggable fee calculation per slot type; strategies self-register via static initializer blocks and `Class.forName()` in `PaymentStrategyFactory`
 - `ParkingTicket` — records vehicle, slot, and arrival time; consumed on exit
@@ -254,6 +255,7 @@ Applying multiple patterns together to solve real system design problems.
 **Patterns:** State, Strategy, Observer
 
 **Key design decisions:**
+
 - Each `Elevator` implements `Runnable` — runs its own movement loop on a dedicated thread; no central scheduler
 - Two `PriorityBlockingQueue` per elevator — `upQueue` (min heap) for ascending floors, `downQueue` (max heap, `Comparator.reverseOrder()`) for descending floors; ensures SCAN-style ordered processing
 - `addFloorToQueue(int floor)` derives direction from `currentFloor` vs destination internally — not from user's requested direction. This prevents a critical bug where an elevator at floor 0 assigned a DOWN request for floor 5 would enqueue into `downQueue` and never move upward to reach the pickup floor
