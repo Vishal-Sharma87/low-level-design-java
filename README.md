@@ -241,12 +241,26 @@ Applying multiple patterns together to solve real system design problems.
 **Patterns:** Singleton, Strategy, Factory
 
 **Key design decisions:**
-
 - `SlotManager` (Singleton) — owns two `Map<VehicleType, LinkedHashSet<Integer>>` for available and occupied slots; O(1) assignment and release
 - `BillingSystem` + `PaymentStrategy` — pluggable fee calculation per slot type; strategies self-register via static initializer blocks and `Class.forName()` in `PaymentStrategyFactory`
 - `ParkingTicket` — records vehicle, slot, and arrival time; consumed on exit
 - Slot release is conditional — only after confirmed payment; failed billing leaves slot occupied
 - `VehicleType` and `SlotType` unified into one enum for base design; separation deferred to v2 when overflow parking (BIKE in TRUCK slot) is introduced
+
+---
+
+### Elevator System
+
+**Patterns:** State, Strategy, Observer
+
+**Key design decisions:**
+- Each `Elevator` implements `Runnable` — runs its own movement loop on a dedicated thread; no central scheduler
+- Two `PriorityBlockingQueue` per elevator — `upQueue` (min heap) for ascending floors, `downQueue` (max heap, `Comparator.reverseOrder()`) for descending floors; ensures SCAN-style ordered processing
+- `addFloorToQueue(int floor)` derives direction from `currentFloor` vs destination internally — not from user's requested direction. This prevents a critical bug where an elevator at floor 0 assigned a DOWN request for floor 5 would enqueue into `downQueue` and never move upward to reach the pickup floor
+- CPU-efficient idle blocking — `IdleState` calls `elevator.wait()` when both queues are empty; `addFloorToQueue()` calls `notify()` on new request; each elevator blocks and wakes independently on its own monitor
+- `updateStatusAndState(ElevatorState, Status)` — single method keeps `ElevatorState` interface and `Status` enum in sync atomically; prevents partial state inconsistency
+- `NearestElevatorStrategy` — calculates SCAN-aware cost per elevator based on current status, direction, and floor position; accounts for elevators that must complete current direction before reversing
+- `ElevatorTracker` (Singleton, Observer) — holds full `Elevator` references for assignment service; prints floor and status on each `moveUp()`/`moveDown()` notification
 
 ---
 
@@ -279,6 +293,7 @@ Each concept has a dedicated notes file with interview Q&A:
 - `solid/isp/README.md`
 - `solid/dip/README.md`
 - `casestudies/parkinglot/README.md`
+- `casestudies/elevatorsystem/README.md`
 
 ---
 
